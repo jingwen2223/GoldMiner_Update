@@ -11,7 +11,7 @@ int endy;		//end x, y
 //endx = x+leng*cosa;
 //endy = y+leng* sina;
 
-double length =50;
+double length =60;
 double n = 0; //angle setting up
 
 int dir =1;
@@ -28,6 +28,7 @@ void logic() {
 			&&endy>obj.y&&endy<obj.y+obj.height) {
 		state =3;
 		System.out.println("1");
+		obj.flag = true;  //all the other gold disappear;
 	}
 	}
 }
@@ -64,7 +65,7 @@ void  paintSelf(Graphics g) {
 			
 			length = length +10;  //after clicking the mouse, the line will be extended to catch the object
 			if(length<500) {
-				length = length +10;
+				length = length +13;
 				
 				}
 			else{state=2;}
@@ -90,20 +91,22 @@ void  paintSelf(Graphics g) {
 				length = length -10;
 				lines(g);
 				for(Object obj:this.frame.objectList) {
+					if(obj.flag==true) {  //prevent all gold disappear
 					obj.x=endx-26;
 					obj.y=endy;
 					if(length<=100) {
 						obj.x=-150;
 						obj.y=-150;
-						
+						obj.flag=false;
 						state=0;}
 				}
-				
+				}
 				
 			
-			 
+			
 			
 			break;
+		
 			
 }
 	

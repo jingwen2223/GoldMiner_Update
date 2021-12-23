@@ -12,7 +12,7 @@ import javax.swing.*;
 
 public class GameWindow extends JFrame{
 	
-	
+	int num;
 	
 	ArrayList <Object>objectList = new ArrayList<Object>(); //store gold and stone;
 	
@@ -21,8 +21,9 @@ public class GameWindow extends JFrame{
 	Gold gold = new Gold();
 	Rock rock = new Rock();
 
-	{
-		for(int i = 0; i<3; i++) {
+	{  	
+		num= (int) (Math.random()*7);
+		for(int i=0; i<num+5; i++) {//code bock for generating amount of gold
 			objectList.add(new Gold());
 		}
 	
@@ -60,9 +61,9 @@ public class GameWindow extends JFrame{
 		}
 
 	
-
+	@Override
 	public void paint(Graphics g) {
-		offScreenImage = this.createImage(700, 900); //(width, height)
+		offScreenImage = this.createImage(700, 900); //(width, height)  To draw Image before it print again
 		Graphics gImage =offScreenImage.getGraphics();
 		
 		bg.paintSelf(gImage); //only call method from background paintSefl method
