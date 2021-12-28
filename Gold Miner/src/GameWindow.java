@@ -1,3 +1,6 @@
+//Credit for the artworks authors： quaternius(the crown), Johann C(the diamond).
+
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.List;
@@ -12,19 +15,52 @@ import javax.swing.*;
 
 public class GameWindow extends JFrame{
 	
-	int num;
+	
 	
 	ArrayList <Object>objectList = new ArrayList<Object>(); //store gold and stone;
 	
 	background bg= new background(); //make new background
 	Line line = new Line(this);
 	Gold gold = new Gold();
+	Diamond diamond = new Diamond();
 	Rock rock = new Rock();
+	
 
 	{  	
-		num= (int) (Math.random()*7);
-		for(int i=0; i<num+5; i++) {//code bock for generating amount of gold
-			objectList.add(new Gold());
+		
+		boolean isPlace = true; //Can the object able to place in the spawn location
+		for(int i=0; i<8; i++) {//code bock for generating 11 gold or diamond or skull 
+			double random = Math.random();
+				Gold block;
+						//store the object that currently spawn
+				if(random<0.3) {block = new Diamond();}
+				
+				else if(random<0.7) {block= new Gold();}
+				//else {objectList.add(new Diamond());}
+				else {block =new Skull();}
+				for(Object obj:objectList) {
+					if(block.getRec().intersects(obj.getRec())) {  //filter out all the object spawn above and check if it intersect 
+						isPlace = false;}	
+					}
+				
+				if(isPlace) {objectList.add(block);}
+				else {isPlace=true;i--;}
+		}
+			
+			//		objectList.add(new Gold());  Original code for one form of Gold object
+		
+		for(int i=0; i<4; i++) {
+			double random2 = Math.random();
+						//code  for generating amount of gold
+			if(random2<0.3) {rock = new Rock();}
+			else if(random2<0.7) {gold = new Skull();}
+			for(Object obj:objectList) {
+				if(rock.getRec().intersects(obj.getRec())) {  //filter out all the object spawn above and check if it intersect 
+					isPlace = false;}	
+				}
+			
+			if(isPlace) {objectList.add(rock);}
+			else {isPlace=true;i--;}
 		}
 	
 	}
